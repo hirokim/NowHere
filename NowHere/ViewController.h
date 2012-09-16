@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MessageUI/MessageUI.h>
+#import <Twitter/TWTweetComposeViewController.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, UIDocumentInteractionControllerDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate>
+
+@property (nonatomic) IBOutlet MKMapView *mapview;
+@property (nonatomic) IBOutlet UIToolbar *toolbar;
+
+- (IBAction)showNowLocation:(id)sender;
+- (IBAction)sendNowLocation:(id)sender;
 
 @end
