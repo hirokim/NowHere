@@ -20,6 +20,8 @@
     CLLocationManager* locmanager;
     CLPlacemark *placemark;
     UIDocumentInteractionController *diController;
+    
+    BOOL bannerIsVisible;
 }
 
 @end
@@ -34,9 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    self.mapview.showsUserLocation = YES;
-    
+
     locmanager = [[CLLocationManager alloc] init];
     [locmanager setDelegate:self];
     [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];    //精度 (デフォルトはBest)
@@ -44,6 +44,33 @@
     
     // 現在地情報更新スタート
     [locmanager startUpdatingLocation];
+    
+    self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0,
+                                                             410,
+                                                             NAD_ADVIEW_SIZE_320x50.width,
+                                                             NAD_ADVIEW_SIZE_320x50.height)];
+    
+    [self.nadView setNendID:@"558c894678fa36d5732ac8dbdc65d2350ab0666b" spotID:@"19662"];
+    [self.nadView setDelegate:self];
+    [self.nadView load];
+    [self.view addSubview:self.nadView];
+    
+    bannerIsVisible = NO;
+    iAdbanner = [[ADBannerView alloc] initWithFrame:CGRectZero];
+    iAdbanner.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+    iAdbanner.delegate = self;
+    [self.view addSubview:iAdbanner];
+    iAdbanner.frame = CGRectOffset(iAdbanner.frame, 0, 460);
+}
+
+//======================================================
+//
+//　画面表示前
+//
+//======================================================
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[GANTracker sharedTracker] trackPageview:@"/現在地マップ" withError:nil];
 }
 
 //======================================================
@@ -64,7 +91,7 @@
 //======================================================
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 //======================================================
@@ -77,7 +104,7 @@
            fromLocation:(CLLocation *)oldLocation
 {
     // マップ表示域設定
-    MKCoordinateSpan span = MKCoordinateSpanMake(0.005, 0.005);
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.003, 0.003);
     MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, span);
     
     // 現在地表示
@@ -87,10 +114,31 @@
     [locmanager stopUpdatingLocation];
     
     // 逆ジオコーディングで住所情報取得
+    [self reverseGeocodeLocation:newLocation];
+}
+
+//======================================================
+//
+//　現在地情報自動更新時
+//
+//======================================================
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    // 逆ジオコーディングで住所情報取得
+    [self reverseGeocodeLocation:userLocation.location];
+}
+
+//======================================================
+//
+//　逆ジオコーディング
+//
+//======================================================
+- (void)reverseGeocodeLocation:(CLLocation *)location
+{
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:
+    [geocoder reverseGeocodeLocation:location completionHandler:
      ^(NSArray* placemarks, NSError* error)
-    {
+     {
          if ([placemarks count] > 0)
          {
              placemark = (CLPlacemark *)[placemarks lastObject];
@@ -105,6 +153,11 @@
 //======================================================
 - (IBAction)showNowLocation:(id)sender
 {
+    [[GANTracker sharedTracker] trackEvent:@"/現在地マップ"
+                                    action:@"更新ボタン押下"
+                                     label:nil
+                                     value:-1
+                                 withError:nil];
     // 現在地情報更新スタート
     [locmanager startUpdatingLocation];
 }
@@ -128,6 +181,12 @@
         return;
     }
     
+    [[GANTracker sharedTracker] trackEvent:@"/現在地マップ"
+                                    action:@"現在地情報送信"
+                                     label:[self createAddressText]
+                                     value:-1
+                                 withError:nil];
+    
     // アクションシートオブジェクトを生成
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"send", @"送信")
                                                              delegate:self
@@ -148,27 +207,39 @@
 //======================================================
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSString *trackStr = nil;
+    
     switch (buttonIndex) {
         case OPEN_OTHER:
+            trackStr = @"その他のアプリ";
             [self openOtherApplication];
             break;
             
         case OPEN_SMS:
+            trackStr = @"SMS";
             [self openSMS];
             break;
             
         case OPEN_MAIL:
+            trackStr = @"メール";
             [self openMail];
             break;
             
         case OPEN_TWITTER:
+            trackStr = @"Twitter";
             [self openTwitter];
             break;
             
         default:
-            // cancel click
+            trackStr = @"キャンセル";
             break;
     }
+    
+    [[GANTracker sharedTracker] trackEvent:@"/現在地マップ"
+                                    action:@"送信ボタン押下"
+                                     label:trackStr
+                                     value:-1
+                                 withError:nil];
 }
 
 //======================================================
@@ -183,7 +254,7 @@
     [text appendString:@"\n"];
     [text appendString:[self createAddressText]];
     [text appendString:@"\n"];
-    [text appendString:[[self createMapURL] absoluteString]];
+    [text appendString:[self createMapURL]];
     
     // UIPasteboardにコピー
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -239,7 +310,7 @@
     
     // メッセージ作成
     NSMutableString *text = [NSMutableString stringWithFormat:@"%@\n", [self createAddressText]];
-    [text appendString:[[self createMapURL] absoluteString]];
+    [text appendString:[self createMapURL]];
     
     // メール画面作成
     MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
@@ -300,10 +371,10 @@
     {
         // メッセージ作成
         NSMutableString *text = [NSMutableString stringWithFormat:@"%@", NSLocalizedString(@"It is here now!!", @"今ココにいるよ！")];
-        [text appendString:@"\n"];
+        [text appendString:@"\n\n"];
         [text appendString:[self createAddressText]];
         [text appendString:@"\n"];
-        [text appendString:[[self createMapURL] absoluteString]];
+        [text appendString:[self createMapURL]];
         
         // UIPasteboardにコピー
         [pasteboard setString:text];
@@ -349,7 +420,7 @@
     else if (alertView.tag == OPEN_OTHER)
     {
         // 他のアプリで開く
-        [self presentUIDocumentInteractionController];
+        [self performSelector:@selector(presentUIDocumentInteractionController) withObject:nil afterDelay:0.3];
     }
     
 }
@@ -361,7 +432,7 @@
 //======================================================
 - (void)openTwitter
 {
-    // 地図を画像に変換 [[self createMapURL] absoluteString]
+    // 地図を画像に変換
     UIImage *nowImage = [self convertToImage:self.mapview];
     
     // メッセージ作成
@@ -438,7 +509,14 @@
 //    NSLog(@"addressDictionary SubThoroughfare : %@", [placemark.addressDictionary objectForKey:@"SubThoroughfare"]);
 //    NSLog(@"addressDictionary Thoroughfare : %@", [placemark.addressDictionary objectForKey:@"Thoroughfare"]);
     
-    return [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"] lastObject];
+    NSMutableString *addressStr = [NSMutableString stringWithCapacity:0];
+    NSArray *array = [placemark.addressDictionary objectForKey:@"FormattedAddressLines"];
+    for (NSString *tmpStr in array)
+    {
+        [addressStr appendFormat:@"%@ \n", tmpStr];
+    }
+    
+    return addressStr;
 }
 
 //======================================================
@@ -446,16 +524,70 @@
 //　位置情報URLの文字を取得
 //
 //======================================================
-- (NSURL *)createMapURL
+- (NSString *)createMapURL
 {
     NSString *urlStr = @"http://maps.google.com/maps?q=%@@%f,%f";
     
     float latitude = placemark.location.coordinate.latitude;    // 緯度
     float longitude = placemark.location.coordinate.longitude;  // 経度
     
+    return [NSString stringWithFormat:urlStr, NSLocalizedString(@"Here", @"今ココ"), latitude, longitude];
+}
+
+#pragma mark - NADView delegate
+
+// NADViewのロードが成功した時に呼ばれる
+- (void)nadViewDidFinishLoad:(NADView *)adView
+{
+    NSLog(@"FirstView delegate nadViewDidFinishLoad:");
+}
+
+// 広告受信成功
+-(void)nadViewDidReceiveAd:(NADView *)adView
+{
+    NSLog(@"FirstView delegate nadViewDidReceiveAd:");
+}
+
+// 広告受信エラー
+-(void)nadViewDidFailToReceiveAd:(NADView *)adView
+{
+    NSLog(@"FirstView delegate nadViewDidFailToReceiveAd:");
+}
+
+#pragma mark - ADBannerView delegate
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     
-    urlStr = [NSString stringWithFormat:urlStr, NSLocalizedString(@"Here", @"今ココ"), latitude, longitude];
-    return [NSURL URLWithString:urlStr];
+	BOOL shouldExecuteAction = YES;
+    if (!willLeave && shouldExecuteAction)
+    {
+        
+    }
+    return shouldExecuteAction;
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    if (!bannerIsVisible)
+    {
+        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+		// assumes the banner view is offset 50 pixels so that it is not visible.
+        banner.frame = CGRectOffset(banner.frame, 0, -50);
+        [UIView commitAnimations];
+        bannerIsVisible = YES;
+    }
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+	if (bannerIsVisible)
+    {
+        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+		// assumes the banner view is at the top of the screen.
+        banner.frame = CGRectOffset(banner.frame, 0, 50);
+        [UIView commitAnimations];
+        bannerIsVisible = NO;
+    }
 }
 
 @end

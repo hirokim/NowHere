@@ -7,13 +7,17 @@
 //
 
 #import "AppDelegate.h"
-
 #import "ViewController.h"
+#import "GANTracker.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[GANTracker sharedTracker] startTrackerWithAccountID:@"UA-33846161-6"
+                                           dispatchPeriod:10
+                                                 delegate:nil];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
