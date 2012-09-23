@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     locmanager = [[CLLocationManager alloc] init];
     [locmanager setDelegate:self];
     [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];    //精度 (デフォルトはBest)
@@ -456,7 +456,7 @@
 //======================================================
 - (UIImage *)convertToImage:(UIView *)uiv
 {
-    UIGraphicsBeginImageContext(uiv.frame.size);
+    UIGraphicsBeginImageContextWithOptions(uiv.frame.size, NO, 0);
     [uiv.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
