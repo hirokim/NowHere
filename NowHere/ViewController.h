@@ -18,15 +18,18 @@
 
 @interface ViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, UIDocumentInteractionControllerDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, ADBannerViewDelegate, NADViewDelegate>
 {
-    NADView *nadView;
-    ADBannerView *iAdbanner;
+
 }
 
-@property (nonatomic, retain) NADView *nadView;
+@property (nonatomic) NADView *nadView;
 @property (nonatomic) IBOutlet MKMapView *mapview;
 @property (nonatomic) IBOutlet UIToolbar *toolbar;
+@property (nonatomic) IBOutlet UISegmentedControl *segmentMap;
+@property (nonatomic) IBOutlet UIWebView *webGoogleMapview;
+@property (nonatomic) IBOutlet UIView *adBaseview;
 
 - (IBAction)showNowLocation:(id)sender;
 - (IBAction)sendNowLocation:(id)sender;
+- (IBAction)swichMapview:(id)sender;
 
 @end

@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>Google Maps JavaScript API v3 Example: iPhone Geolocation</title>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+var initialLocation;
+var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
+
+function initialize() {
+  var myOptions = {
+    zoom: 14,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  
+  // Safari supports the W3C Geolocation method
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      var placeMarker = new google.maps.Marker({
+        position: initialLocation,
+        map: map,
+      });
+      map.setCenter(initialLocation);
+    }, function() {
+      handleNoGeolocation(browserSupportFlag);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation();
+  }
+  
+  function handleNoGeolocation() {
+    initialLocation = newyork;
+    map.setCenter(initialLocation);
+  }
+}
+</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="initialize()">
+  <div id="map_canvas" style="width:100%; height:100%"></div>
+</body>
+</html>

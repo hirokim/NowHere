@@ -17,6 +17,8 @@
 
 @interface ViewController ()
 {
+    ADBannerView *iAdbanner;
+    
     CLLocationManager* locmanager;
     CLPlacemark *placemark;
     UIDocumentInteractionController *diController;
@@ -45,22 +47,65 @@
     // 現在地情報更新スタート
     [locmanager startUpdatingLocation];
     
+    // GoogleMap読み込み
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleMap" ofType:@"html"];
+    NSData *htmlData = [NSData dataWithContentsOfFile:path];
+    NSString *htmlStr = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    [self.webGoogleMapview loadHTMLString:htmlStr baseURL:nil];
+
     self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0,
-                                                             410,
+                                                             0,
                                                              NAD_ADVIEW_SIZE_320x50.width,
                                                              NAD_ADVIEW_SIZE_320x50.height)];
     
     [self.nadView setNendID:@"558c894678fa36d5732ac8dbdc65d2350ab0666b" spotID:@"19662"];
     [self.nadView setDelegate:self];
     [self.nadView load];
-    [self.view addSubview:self.nadView];
+    [self.adBaseview addSubview:self.nadView];
     
     bannerIsVisible = NO;
     iAdbanner = [[ADBannerView alloc] initWithFrame:CGRectZero];
     iAdbanner.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
     iAdbanner.delegate = self;
-    [self.view addSubview:iAdbanner];
-    iAdbanner.frame = CGRectOffset(iAdbanner.frame, 0, 460);
+    [self.adBaseview addSubview:iAdbanner];
+    iAdbanner.frame = CGRectOffset(iAdbanner.frame, 0, 50);
+
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    int usingMap = [ud integerForKey:@"usingMap"];
+    self.segmentMap.selectedSegmentIndex = usingMap;
+    if (usingMap == 0)
+    {
+        self.webGoogleMapview.hidden = YES;
+    }
+    else
+    {
+        self.mapview.hidden = YES;
+    }
+    
+    self.segmentMap.hidden = NO;
+}
+
+//======================================================
+//
+//　地図きりかえ
+//
+//======================================================
+- (IBAction)swichMapview:(id)sender
+{
+    int usingMap = self.segmentMap.selectedSegmentIndex;
+    if (usingMap == 0)
+    {
+        self.webGoogleMapview.hidden = YES;
+        self.mapview.hidden = NO;
+    }
+    else
+    {
+        self.webGoogleMapview.hidden = NO;
+        self.mapview.hidden = YES;
+    }
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:usingMap forKey:@"usingMap"];
 }
 
 //======================================================
