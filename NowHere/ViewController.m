@@ -48,15 +48,16 @@
     [locmanager startUpdatingLocation];
     
     // GoogleMap読み込み
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleMap" ofType:@"html"];
-    NSData *htmlData = [NSData dataWithContentsOfFile:path];
-    NSString *htmlStr = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-    [self.webGoogleMapview loadHTMLString:htmlStr baseURL:nil];
-
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleMap" ofType:@"html"];
+//    NSData *htmlData = [NSData dataWithContentsOfFile:path];
+//    NSString *htmlStr = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+//    [self.webGoogleMapview loadHTMLString:htmlStr baseURL:nil];
+    
     self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0,
                                                              0,
                                                              NAD_ADVIEW_SIZE_320x50.width,
                                                              NAD_ADVIEW_SIZE_320x50.height)];
+    [self.segmentMap setAlpha:0.0];
     
     [self.nadView setNendID:@"558c894678fa36d5732ac8dbdc65d2350ab0666b" spotID:@"19662"];
     [self.nadView setDelegate:self];
@@ -237,7 +238,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:NSLocalizedString(@"cancel", @"キャンセル")
                                                destructiveButtonTitle:NSLocalizedString(@"other", @"LINEなどその他のアプリ")
-                                                    otherButtonTitles:@"SMS", @"Mail", @"Twitter", nil];
+                                                    otherButtonTitles:@"Message", @"Mail", @"Twitter", nil];
     // シートスタイルを設定
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
 
@@ -322,7 +323,7 @@
 - (void)presentUIDocumentInteractionController
 {
     // 地図を画像ファイルとして保存
-    UIImage *nowImage = [self convertToImage:self.mapview];
+    UIImage *nowImage = [self convertToImage];
     NSString *filePath = [self saveImageOnPng:nowImage ImageName:@"nowHere.png"];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     
@@ -350,7 +351,7 @@
 - (void)openMail
 {
     // 地図を画像に変換
-    UIImage *nowImage = [self convertToImage:self.mapview];
+    UIImage *nowImage = [self convertToImage];
     NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(nowImage)];
     
     // メッセージ作成
@@ -391,6 +392,7 @@
                                           otherButtonTitles:NSLocalizedString(@"location", @"位置情報"),
                                                               NSLocalizedString(@"map", @"地図"),
                                                               NSLocalizedString(@"cancel", @"キャンセル"),nil];
+    
     [alert setTag:OPEN_SMS];
     [alert show];
 }
@@ -422,17 +424,17 @@
         [text appendString:[self createMapURL]];
         
         // UIPasteboardにコピー
-        [pasteboard setString:text];
+        [pasteboard setValue:text forPasteboardType:@"public.text"];
     }
     
     // 地図コピー
     else if (buttonIndex == 1)
     {
         // 地図を画像に変換
-        UIImage *nowImage = [self convertToImage:self.mapview];
+        UIImage *nowImage = [self convertToImage];
         
         // UIPasteboardにコピー
-        [pasteboard setImage:nowImage];
+        [pasteboard setData:UIImagePNGRepresentation(nowImage) forPasteboardType:@"public.png"];
     }
     
     // SMSを開く
@@ -478,7 +480,7 @@
 - (void)openTwitter
 {
     // 地図を画像に変換
-    UIImage *nowImage = [self convertToImage:self.mapview];
+    UIImage *nowImage = [self convertToImage];
     
     // メッセージ作成
     NSMutableString *text = [NSMutableString stringWithFormat:@"%@", NSLocalizedString(@"It is here now!!", @"今ココにいるよ！")];
@@ -499,7 +501,20 @@
 //　UIViewをUIImageに変換
 //
 //======================================================
-- (UIImage *)convertToImage:(UIView *)uiv
+- (UIImage *)convertToImage
+{
+    int usingMap = self.segmentMap.selectedSegmentIndex;
+    if (usingMap == 0)
+    {
+        return [self convertToImageFromView:self.mapview];
+    }
+    else
+    {
+        return [self convertToImageFromView:self.webGoogleMapview];
+    }
+}
+
+- (UIImage *)convertToImageFromView:(UIView *)uiv
 {
     UIGraphicsBeginImageContextWithOptions(uiv.frame.size, NO, 0);
     [uiv.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -507,6 +522,20 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+- (UIImage *)convertToImageFromWebView:(UIWebView *)webView
+{
+    CGRect screenRect = webView.frame;
+    UIGraphicsBeginImageContext(webView.frame.size);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextFillRect(ctx, screenRect);
+    [webView.layer renderInContext:ctx];
+    
+    UIImage *screenImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return screenImage;
 }
 
 //======================================================
