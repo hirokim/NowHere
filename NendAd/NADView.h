@@ -2,30 +2,27 @@
 //  NADView.h
 //  NendAd
 //
-//  Ver 1.3.1
+//  Ver 2.3.0
 //
 //  広告枠ベースビュークラス
-
-/*
- 
- nendSDK_iOSはUIIDの生成にUIApplication+UIIDを利用しています
- 
- UIApplication+UIID
- Copyright (c) 2011 Masashi Ono.
- 
- This code is licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
- */
 
 #import <UIKit/UIKit.h>
 
 #define NAD_ADVIEW_SIZE_320x50  CGSizeMake(320,50)
+
+// エラー種別
+typedef enum {
+    // 広告サイズがディスプレイサイズよりも大きい
+    NADVIEW_AD_SIZE_TOO_LARGE,
+    // 不明な広告ビュータイプ
+    NADVIEW_INVALID_RESPONSE_TYPE,
+    // 広告取得失敗
+    NADVIEW_FAILED_AD_REQUEST,
+    // 広告画像の取得失敗
+    NADVIEW_FAILED_AD_DOWNLOAD,
+    // リクエストしたサイズと取得したサイズが異なる
+    NADVIEW_AD_SIZE_DIFFERENCES
+}NADViewErrorCode;
 
 @class NADView;
 
@@ -42,17 +39,28 @@
 #pragma mark - 広告受信に失敗した際に通知されます
 - (void)nadViewDidFailToReceiveAd:(NADView *)adView;
 
+#pragma mark - 広告バナークリック時に通知されます
+- (void)nadViewDidClickAd:(NADView *)adView;
+
 @end
 
 @interface NADView : UIView {
     id delegate;
+    NSError *error;
 }
 
 #pragma mark - delegateオブジェクトの指定
 @property (nonatomic, assign) id <NADViewDelegate> delegate;
 
 #pragma mark - モーダルビューを表示元のビューコントローラを指定
+// ※現在では利用されないpropertyのため、今後は削除を予定しています。
 @property (nonatomic, assign) UIViewController *rootViewController;
+
+#pragma mark - Log出力設定
+@property (nonatomic) BOOL isOutputLog;
+
+#pragma mark - エラー内容出力
+@property (nonatomic, assign) NSError *error;
 
 #pragma mark - 広告枠のapiKeyとspotIDをセット
 - (void)setNendID:(NSString *)apiKey spotID:(NSString *)spotID;
@@ -75,3 +83,4 @@
 - (void)resume;
 
 @end
+

@@ -22,7 +22,6 @@
 		F5205910160610CF000CCCF5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5205912160610CF000CCCF5 /* Localizable.strings */; };
 		F53314721618300D00B1D701 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F53314711618300C00B1D701 /* Default-568h@2x.png */; };
 		F5331475161837B600B1D701 /* GoogleMap.html in Resources */ = {isa = PBXBuildFile; fileRef = F5331474161837B600B1D701 /* GoogleMap.html */; };
-		F5E3322D160626BA00C84C25 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3322B160626BA00C84C25 /* libNendAd.a */; };
 		F5E33230160626F000C84C25 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3322F160626F000C84C25 /* Security.framework */; };
 		F5E3324116062E4700C84C25 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3324016062E4700C84C25 /* iAd.framework */; };
 		F5E3324716063E4400C84C25 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E3324616063E4400C84C25 /* icon.png */; };
@@ -30,6 +29,13 @@
 		F5E3324E1606C34300C84C25 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3324C1606C34300C84C25 /* libGoogleAnalytics.a */; };
 		F5E3325D1606C42800C84C25 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3325C1606C42800C84C25 /* libsqlite3.0.dylib */; };
 		F5E3325F1606C43800C84C25 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3325E1606C43800C84C25 /* CFNetwork.framework */; };
+		F6AA955A18422002002735A1 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AA955518422002002735A1 /* libNendAd.a */; };
+		F6AA955B18422002002735A1 /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F6AA955918422002002735A1 /* NADView_readme.txt */; };
+		F6AA955D18422075002735A1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AA955C18422075002735A1 /* AdSupport.framework */; };
+		F6AA9562184239DF002735A1 /* icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = F6AA955E184239DF002735A1 /* icon29.png */; };
+		F6AA9563184239DF002735A1 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = F6AA955F184239DF002735A1 /* icon120.png */; };
+		F6AA9564184239DF002735A1 /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = F6AA9560184239DF002735A1 /* icon58.png */; };
+		F6AA9565184239DF002735A1 /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = F6AA9561184239DF002735A1 /* icon80.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +61,6 @@
 		F5205913160610D3000CCCF5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F53314711618300C00B1D701 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F5331474161837B600B1D701 /* GoogleMap.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = GoogleMap.html; sourceTree = "<group>"; };
-		F5E3322B160626BA00C84C25 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
-		F5E3322C160626BA00C84C25 /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
 		F5E3322F160626F000C84C25 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F5E3324016062E4700C84C25 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		F5E3324616063E4400C84C25 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -65,6 +69,16 @@
 		F5E3324C1606C34300C84C25 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		F5E3325C1606C42800C84C25 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		F5E3325E1606C43800C84C25 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F6AA955518422002002735A1 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
+		F6AA955618422002002735A1 /* NADIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconLoader.h; sourceTree = "<group>"; };
+		F6AA955718422002002735A1 /* NADIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconView.h; sourceTree = "<group>"; };
+		F6AA955818422002002735A1 /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
+		F6AA955918422002002735A1 /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
+		F6AA955C18422075002735A1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		F6AA955E184239DF002735A1 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
+		F6AA955F184239DF002735A1 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		F6AA9560184239DF002735A1 /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
+		F6AA9561184239DF002735A1 /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +86,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6AA955D18422075002735A1 /* AdSupport.framework in Frameworks */,
 				F5E3325F1606C43800C84C25 /* CFNetwork.framework in Frameworks */,
 				F5E3325D1606C42800C84C25 /* libsqlite3.0.dylib in Frameworks */,
+				F6AA955A18422002002735A1 /* libNendAd.a in Frameworks */,
 				F5E3324116062E4700C84C25 /* iAd.framework in Frameworks */,
 				F5E33230160626F000C84C25 /* Security.framework in Frameworks */,
 				F520590C1605D8CF000CCCF5 /* Twitter.framework in Frameworks */,
@@ -83,7 +99,6 @@
 				F52058E61605BAD8000CCCF5 /* UIKit.framework in Frameworks */,
 				F52058E81605BAD8000CCCF5 /* Foundation.framework in Frameworks */,
 				F52058EA1605BAD8000CCCF5 /* CoreGraphics.framework in Frameworks */,
-				F5E3322D160626BA00C84C25 /* libNendAd.a in Frameworks */,
 				F5E3324E1606C34300C84C25 /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,11 +109,15 @@
 		F52058D61605BAD8000CCCF5 = {
 			isa = PBXGroup;
 			children = (
+				F6AA955418422002002735A1 /* NendAd */,
 				F53314711618300C00B1D701 /* Default-568h@2x.png */,
 				F5E3324816063E4A00C84C25 /* icon@2x.png */,
 				F5E3324616063E4400C84C25 /* icon.png */,
+				F6AA955E184239DF002735A1 /* icon29.png */,
+				F6AA955F184239DF002735A1 /* icon120.png */,
+				F6AA9560184239DF002735A1 /* icon58.png */,
+				F6AA9561184239DF002735A1 /* icon80.png */,
 				F5E3324A1606C34300C84C25 /* Analytics */,
-				F5E3322A160626BA00C84C25 /* NendAd */,
 				F52058EB1605BAD8000CCCF5 /* NowHere */,
 				F52058E41605BAD8000CCCF5 /* Frameworks */,
 				F52058E21605BAD8000CCCF5 /* Products */,
@@ -116,6 +135,7 @@
 		F52058E41605BAD8000CCCF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6AA955C18422075002735A1 /* AdSupport.framework */,
 				F5E3325C1606C42800C84C25 /* libsqlite3.0.dylib */,
 				F5E3325E1606C43800C84C25 /* CFNetwork.framework */,
 				F5E3324016062E4700C84C25 /* iAd.framework */,
@@ -157,15 +177,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F5E3322A160626BA00C84C25 /* NendAd */ = {
-			isa = PBXGroup;
-			children = (
-				F5E3322B160626BA00C84C25 /* libNendAd.a */,
-				F5E3322C160626BA00C84C25 /* NADView.h */,
-			);
-			path = NendAd;
-			sourceTree = "<group>";
-		};
 		F5E3324A1606C34300C84C25 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +184,18 @@
 				F5E3324C1606C34300C84C25 /* libGoogleAnalytics.a */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		F6AA955418422002002735A1 /* NendAd */ = {
+			isa = PBXGroup;
+			children = (
+				F6AA955518422002002735A1 /* libNendAd.a */,
+				F6AA955618422002002735A1 /* NADIconLoader.h */,
+				F6AA955718422002002735A1 /* NADIconView.h */,
+				F6AA955818422002002735A1 /* NADView.h */,
+				F6AA955918422002002735A1 /* NADView_readme.txt */,
+			);
+			path = NendAd;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,7 +224,7 @@
 		F52058D81605BAD8000CCCF5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "松瀬 弘樹";
 			};
 			buildConfigurationList = F52058DB1605BAD8000CCCF5 /* Build configuration list for PBXProject "NowHere" */;
@@ -229,11 +252,16 @@
 			files = (
 				F52058F01605BAD8000CCCF5 /* InfoPlist.strings in Resources */,
 				F52058FC1605BAD8000CCCF5 /* ViewController.xib in Resources */,
+				F6AA9565184239DF002735A1 /* icon80.png in Resources */,
 				F5205910160610CF000CCCF5 /* Localizable.strings in Resources */,
+				F6AA955B18422002002735A1 /* NADView_readme.txt in Resources */,
 				F5E3324716063E4400C84C25 /* icon.png in Resources */,
 				F5E3324916063E4A00C84C25 /* icon@2x.png in Resources */,
+				F6AA9563184239DF002735A1 /* icon120.png in Resources */,
 				F53314721618300D00B1D701 /* Default-568h@2x.png in Resources */,
 				F5331475161837B600B1D701 /* GoogleMap.html in Resources */,
+				F6AA9564184239DF002735A1 /* icon58.png in Resources */,
+				F6AA9562184239DF002735A1 /* icon29.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,9 +314,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -301,10 +333,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -314,16 +350,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -343,12 +386,13 @@
 				INFOPLIST_FILE = "NowHere/NowHere-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/NendAd\"",
-					"\"$(SRCROOT)/Analytics\"",
+					"$(SRCROOT)/NendAd",
+					"$(SRCROOT)/Analytics",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "68FD1880-03B1-436D-870B-9040539D7EA0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68FD1880-03B1-436D-870B-9040539D7EA0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -356,19 +400,19 @@
 		F52059011605BAD8000CCCF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NowHere/NowHere-Prefix.pch";
 				INFOPLIST_FILE = "NowHere/NowHere-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/NendAd\"",
-					"\"$(SRCROOT)/Analytics\"",
+					"$(SRCROOT)/NendAd",
+					"$(SRCROOT)/Analytics",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "CD1A112F-62B6-4A55-8590-4232701F59AE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CD1A112F-62B6-4A55-8590-4232701F59AE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
